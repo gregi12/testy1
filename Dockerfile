@@ -17,4 +17,4 @@ COPY --from=compiler /opt/env /opt/env
 # Enable venv
 ENV PATH="/opt/env/bin:$PATH"
 COPY . /app/
-
+EXPOSE 8080
