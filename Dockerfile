@@ -1,20 +1,11 @@
 FROM python:3.9-slim as compiler
+
+# Sets an environmental variable that ensures output from python is sent straight to the terminal without buffering it first
 ENV PYTHONUNBUFFERED 1
-
-WORKDIR /app/
-
-RUN python -m venv /opt/env
-# Enable env
-ENV PATH="/opt/env/bin:$PATH"
-
-COPY ./requirements.txt /app/requirements.txt
-RUN pip install -Ur requirements.txt
-
-FROM python:3.9-slim as runner
-WORKDIR /app/
-COPY --from=compiler /opt/env /opt/env
-
-# Enable venv
-ENV PATH="/opt/env/bin:$PATH"
-COPY . /app/
-EXPOSE 8080
+# Sets the container's working directory to /app
+WORKDIR /app
+RUN pip install -r requirements.txt
+# Copies all files from our local project into the container
+COPY . /app
+# Expose the port the app will run on
+EXPOSE 8000
