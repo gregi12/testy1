@@ -7,12 +7,12 @@ class AddNumbers(TestCase):
     def setup(self):
         self.client = APIClient()
     
-    def test_true(self)
+    def test_true(self):
         num1 = 2 
         num2 = 2
         self.assertEqual(num1,num2)
 
-    def test_false(self)
+    def test_false(self):
         num1 = 2 
         num2 = 3
         self.assertEqual(num1,num2)
