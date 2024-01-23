@@ -6,10 +6,6 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /app
 COPY . /app
 RUN pip install -r requirements.txt
-RUN ["/bin/bash", "-c", "echo hello all in one string"]
-RUN ["/bin/bash", "-c", "django --version"]
-# Copies all files from our local project into the container
-
 # Expose the port the app will run on
 EXPOSE 8000
 
