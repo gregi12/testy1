@@ -5,7 +5,6 @@ ENV PYTHONUNBUFFERED 1
 # Sets the container's working directory to /app
 WORKDIR /app
 COPY . /app
-SHELL
 RUN pip install -r requirements.txt
 RUN ["/bin/bash", "-c", "echo hello all in one string"]
 RUN ["/bin/bash", "-c", "django --version"]
