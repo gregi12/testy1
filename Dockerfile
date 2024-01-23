@@ -8,6 +8,7 @@ COPY . /app
 SHELL
 RUN pip install -r requirements.txt
 RUN ["/bin/bash", "-c", "echo hello all in one string"]
+RUN ["/bin/bash", "-c", "django --version"]
 # Copies all files from our local project into the container
 
 # Expose the port the app will run on
