@@ -6,6 +6,7 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /app
 COPY . /app
 RUN pip install -r requirements.txt
+RUN django --version
 # Copies all files from our local project into the container
 
 # Expose the port the app will run on
