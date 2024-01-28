@@ -15,6 +15,7 @@ pipeline {
                 // Run Docker Compose instead of checking out Git branch
                 sh 'docker compose up --build'
                 sh 'ls /var/lib/jenkins/workspace/dobre-testy'
+                echo "something created"
         }
         }
         stage('Test') {
@@ -22,7 +23,7 @@ pipeline {
                     
                     sh '''
                         docker compose -f docker-compose.yml run web python manage.py test
-                        echo "something created"
+                        echo "tests are completed"
                        '''
             }
         }
