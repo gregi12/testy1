@@ -35,7 +35,6 @@ pipeline {
                 script{
                 // Add post-build steps here
                 sh 'docker compose -f docker-compose.yml down'
-                sh 'docker system prune -f'
                 }
             }
         }
@@ -51,8 +50,10 @@ pipeline {
         success {
             echo 'I succeeded!'
         }
-        
+        cleanup {
+            sh 'docker system prune -f'
     }
 
 
+}
 }
