@@ -16,6 +16,7 @@ pipeline {
                 sh 'docker compose up --build'
                 sh 'ls /var/lib/jenkins/workspace/dobre-testy'
                 sh ('docker compose -f docker-compose.yml run web')
+                sh 'docker ps'
         }
         }
         stage('Test') {
