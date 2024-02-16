@@ -16,6 +16,7 @@ pipeline {
                 sh 'docker compose up --build'
                 sh 'ls /var/lib/jenkins/workspace/dobre-testy'
                 echo "something created"
+                echo "$WORKSPACE"
         }
         }
         stage('Test') {
