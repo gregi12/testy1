@@ -47,9 +47,7 @@ pipeline {
         success {
             echo 'I succeeded!'
         }
-        cleanup {
-           
-    }
+        
 
 
 }
