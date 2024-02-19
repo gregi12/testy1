@@ -28,14 +28,13 @@ pipeline {
         }
         stage('Post-build') {
             steps {
-                
+                script{
                 // Add post-build steps here
                 sh '''docker compose -f docker-compose.yml down
                       docker tag usprawnienia-web 192.168.0.10:5000/usprawnienia_web-${currentBuild.number}
                       docker push 192.168.0.10:5000/usprawnienia_web-${currentBuild.number}
                    '''
-                
-            }
+                }
         }
     }
     
