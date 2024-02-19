@@ -37,7 +37,7 @@ pipeline {
                 }
         }
     
-    
+    }
 
     post {
         failure {
@@ -49,7 +49,7 @@ pipeline {
             echo 'I succeeded!'
         }
         
-
+    }
 
 }
 }
