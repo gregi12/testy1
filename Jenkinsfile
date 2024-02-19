@@ -32,7 +32,10 @@ pipeline {
             steps {
                 script{
                 // Add post-build steps here
-                sh 'docker compose -f docker-compose.yml down'
+                sh '''docker compose -f docker-compose.yml down
+                      docker tag web-usprawnienia 192.168.0.10:5000/web_usprawnienia
+                      docker push 192.168.0.10:5000/web_usprawnienia
+                   '''
                 }
             }
         }
