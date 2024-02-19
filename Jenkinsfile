@@ -14,8 +14,6 @@ pipeline {
             steps {
                 // Run Docker Compose instead of checking out Git branch
                 sh 'docker compose up --build'
-                sh 'ls /var/lib/jenkins/workspace/dobre-testy'
-                echo "something created"
                 echo "$WORKSPACE"
         }
         }
@@ -30,13 +28,13 @@ pipeline {
         }
         stage('Post-build') {
             steps {
-                script{
+                
                 // Add post-build steps here
                 sh '''docker compose -f docker-compose.yml down
-                      docker tag web-usprawnienia 192.168.0.10:5000/web_usprawnienia
-                      docker push 192.168.0.10:5000/web_usprawnienia
+                      docker tag usprawnienia-web 192.168.0.10:5000/usprawnienia_web-${currentBuild.number}
+                      docker push 192.168.0.10:5000/usprawnienia_web-${currentBuild.number}
                    '''
-                }
+                
             }
         }
     }
