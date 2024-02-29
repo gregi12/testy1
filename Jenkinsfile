@@ -7,6 +7,7 @@ pipeline {
                     // Add pre-build steps here
                     sh 'echo "Running pre-build steps"'
                     sh 'ls /home/jenkins/workspace/usprawnienia'
+                    sh 'echo $WORKSPACE'
                 }
             }
         
