@@ -15,7 +15,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Run Docker Compose instead of checking out Git branch
-                sh 'docker compose up --build'
+                sh 'docker-compose up --build'
                 echo "$WORKSPACE"
         }
         }
