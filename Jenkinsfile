@@ -1,5 +1,5 @@
 pipeline {
-    agent { dockerfile true }
+    agent { label 'agent-2' }
     stages {
     
         stage('Pre-build') {
