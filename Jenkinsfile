@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'agent-2' }
+    agent { label 'jenkins-agent' }
     stages {
     
         stage('Pre-build') {
