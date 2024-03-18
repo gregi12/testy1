@@ -5,8 +5,11 @@ pipeline {
         stage('Pre-build') {
                 steps {
                     // Add pre-build steps here
-                    sh 'echo "Running pre-build steps"'
-                    sh 'pwd'
+                    sh '''
+                          echo "Running pre-build steps"
+                          docker system prune -a --volumes -f
+                       '''
+                    
                 }
             }
         
@@ -31,7 +34,7 @@ pipeline {
             steps {
                 script{
                 // Add post-build steps here
-                sh '''docker compose -f docker-compose.yml down
+                sh '''
                       docker tag tesxty-web 10.61.15.7:6000/${currentBuild.number}
                       docker push 10.61.15.7:6000/${currentBuild.number}
                    '''
@@ -42,7 +45,8 @@ pipeline {
 
     post {
         always{
-            docker system prune --volumes
+           sh 'docker compose down --remove-orphans -v'
+           sh 'docker compose ps'
         }
         failure {
             mail to: 'staty1@o2.pl',
