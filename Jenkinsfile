@@ -32,8 +32,8 @@ pipeline {
                 script{
                 // Add post-build steps here
                 sh '''docker compose -f docker-compose.yml down
-                      docker tag usprawnienia-web 192.168.0.10:5000/usprawnienia_web
-                      docker push 192.168.0.10:5000/usprawnienia_web
+                      docker tag tesxty-web 10.61.15.7:6000/${currentBuild.number}
+                      docker push 10.61.15.7:6000/${currentBuild.number}
                    '''
                 }
         }
@@ -41,6 +41,9 @@ pipeline {
     
 
     post {
+        always{
+            docker system prune --volumes
+        }
         failure {
             mail to: 'staty1@o2.pl',
                  subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
