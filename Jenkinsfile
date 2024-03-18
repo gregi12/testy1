@@ -35,12 +35,12 @@ pipeline {
     
                 // Add post-build steps here
                 sh '''
-                      docker tag tesxty-web 10.61.15.7:6000/${currentBuild.number}
-                      docker push 10.61.15.7:6000/${currentBuild.number}
+                      docker tag tesxty-web 10.61.15.7:6000/tesxty-web_1
+                      docker push 10.61.15.7:6000/tesxty-web_1
                    '''       
         }
     
-        }
+        
 
     post {
         always{
@@ -57,6 +57,6 @@ pipeline {
         }
         
     }
-        
+        }    
 }
 }
