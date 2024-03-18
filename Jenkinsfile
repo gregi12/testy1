@@ -23,6 +23,7 @@ pipeline {
                     sh '''
                         docker compose -f docker-compose.yml run web python manage.py test
                         echo "tests are completed"
+                        docker images
                        '''
             }
         }
