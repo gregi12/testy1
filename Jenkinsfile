@@ -35,8 +35,8 @@ pipeline {
     
                 // Add post-build steps here
                 sh '''
-                      docker tag tesxty-web 10.61.15.7:5000/tesxty-web
-                      docker push 10.61.15.7:5000/tesxty-web
+                      docker tag tesxty-web 10.61.15.7:5000/tesxty-web:v1
+                      docker push 10.61.15.7:5000/tesxty-web:v1
                    '''       
         }
     
