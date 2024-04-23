@@ -32,7 +32,7 @@ pipeline {
         }
         stage('Post-build') {
             environment{
-                IMAGE_TAG = "${BRANCH_NAME}_hash_value"
+                IMAGE_TAG = "something"
                 REPO_HOST = '10.61.15.7:5000'
                 }
             
