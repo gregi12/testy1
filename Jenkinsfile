@@ -32,10 +32,11 @@ pipeline {
         }
         stage('Post-build') {
             steps {
+                environment{
                 IMAGE_TAG = "${BRANCH_NAME}_hash_value"
                 REPO_HOST = '10.61.15.7:5000'
+                }
                 // Add post-build steps here
-                 
                  sh '/home/jenkins/send_to_repo3.sh'
                         
         }
