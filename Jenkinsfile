@@ -32,12 +32,12 @@ pipeline {
         }
         stage('Post-build') {
             steps {
-    
+                IMAGE_TAG = "${BRANCH_NAME}_hash_value"
+                REPO_HOST = '10.61.15.7:5000'
                 // Add post-build steps here
-                sh '''
-                      docker tag tesxty-web 10.61.15.7:5000/tesxty-web:v1
-                      docker push 10.61.15.7:5000/tesxty-web:v1
-                   '''       
+                 
+                 sh '/home/jenkins/send_to_repo3.sh'
+                        
         }
     
         
