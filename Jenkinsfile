@@ -7,6 +7,7 @@ pipeline {
                     // Add pre-build steps here
                     sh '''
                           echo "Running pre-build steps"
+                          docker ps
                           docker system prune -a --volumes -f
                        '''
                     
@@ -41,24 +42,6 @@ pipeline {
                  sh '/home/jenkins/send_to_repo3.sh'
                         
         }
-    
-        
-
-    post {
-        always{
-           sh 'docker compose down --remove-orphans -v'
-           sh 'docker compose ps'
-        }
-        failure {
-            mail to: 'staty1@o2.pl',
-                 subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-                 body: "Something is wrong with ${env.BUILD_URL}"
-        }
-        success {
-            echo 'I succeeded!'
-        }
-        
-    }
-        }    
+        }        
 }
 }
