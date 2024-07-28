@@ -51,7 +51,7 @@ pipeline {
             steps {
                 container('docker') {
                     // Run Docker Compose instead of checking out Git branch
-                    sh 'docker compose up -d --build'
+                    sh 'docker-compose up -d --build'
                     echo "$WORKSPACE"
                 }
             }
