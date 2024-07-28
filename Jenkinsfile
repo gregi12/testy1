@@ -1,47 +1,58 @@
 pipeline {
-    agent { label 'jenkins-agent' }
+    agent {
+        kubernetes {
+            yaml '''
+            apiVersion: v1
+            kind: Pod
+            spec:
+              containers:
+              - name: docker
+                image: ubuntu:20.04
+                command:
+                - cat
+                tty: true
+                securityContext:
+                  privileged: true
+                volumeMounts:
+                - name: docker-sock
+                  mountPath: /var/run/docker.sock
+              volumes:
+              - name: docker-sock
+                hostPath:
+                  path: /var/run/docker.sock
+            '''
+        }
+    }
     stages {
-    
-        stage('Pre-build') {
-                steps {
-                    // Add pre-build steps here
-                    sh '''
-                          echo "Running pre-build steps"
-                          docker ps
-                          docker system prune -a --volumes -f
-                       '''
-                    
+        stage('Install Docker and Docker Compose') {
+            steps {
+                container('docker') {
+                    script {
+                        sh '''
+                        apt-get update
+                        apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+                        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+                        add-apt-repository \
+                           "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+                           $(lsb_release -cs) \
+                           stable"
+                        apt-get update
+                        apt-get install -y docker-ce docker-ce-cli containerd.io
+                        curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+                        chmod +x /usr/local/bin/docker-compose
+                        docker --version
+                        docker-compose --version
+                        '''
+                    }
                 }
             }
-        
-        stage('Build') {
-            steps {
-                // Run Docker Compose instead of checking out Git branch
-                sh 'docker compose up -d --build'
-                echo "$WORKSPACE"
         }
-        }
-        stage('Test') {
+        stage('') {
             steps {
-                    
-                    sh '''
-                        docker compose -f docker-compose.yml run web python manage.py test
-                        echo "tests are completed"
-                        docker images
-                       '''
+                container('docker') {
+                    // Run Docker Compose instead of checking out Git branch
+                    sh 'docker compose up -d --build'
+                    echo "$WORKSPACE"
+                }
             }
         }
-        stage('Post-build') {
-            environment{
-                IMAGE_TAG = "something"
-                REPO_HOST = '10.61.15.7:5000'
-                }
-            
-            steps {
-                // Add post-build steps here
-                 sh '/home/jenkins/send_to_repo3.sh'
-                        
-        }
-        }        
-}
-}
