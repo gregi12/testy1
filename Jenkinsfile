@@ -47,7 +47,7 @@ pipeline {
                 }
             }
         }
-        stage('') {
+        stage('run') {
             steps {
                 container('docker') {
                     // Run Docker Compose instead of checking out Git branch
@@ -56,3 +56,5 @@ pipeline {
                 }
             }
         }
+    }
+}
