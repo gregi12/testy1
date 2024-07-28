@@ -42,19 +42,12 @@ pipeline {
                         chmod +x /usr/local/bin/docker-compose
                         docker --version
                         docker-compose --version
+                        docker-compose up -d --build
                         '''
                     }
                 }
             }
         }
-        stage('run') {
-            steps {
-                container('docker') {
-                    // Run Docker Compose instead of checking out Git branch
-                    sh 'docker-compose up -d --build'
-                    echo "$WORKSPACE"
-                }
-            }
-        }
+        
     }
 }
